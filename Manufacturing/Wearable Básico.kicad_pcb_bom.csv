@@ -1,0 +1,10 @@
+﻿Designator,Quantity,Value,Footprint,Package,MPN,DNP,Mount_Type,Description
+A1,1,Arduino_Nano_ESP32,Arduino_Nano,,,,tht,"Arduino Nano board based on the ESP32-S3 with a dual-core 240 MHz processor, 384 kB ROM, 512 kB SRAM. Operates at 3.3V, with 5V USB-C® input and 6-21V VIN. Features Wi-Fi®, Bluetooth® LE, digital and analog pins, and supports SPI, I2C, UART, I2S, and CAN."
+BAT,1,BATTERY,JST_EH_S2B-EH_1x02_P2.50mm_Horizontal,,,,tht,"Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+"C1, C2, C5",3,2.2uF,C_0603_1608Metric,,,,smt,Unpolarized capacitor
+C3,1,10nF,C_0603_1608Metric,,,,smt,Unpolarized capacitor
+"C4, C6",2,0.1uF,C_0603_1608Metric,,,,smt,Unpolarized capacitor
+C7,1,2.2nF,C_0603_1608Metric,,,,smt,Unpolarized capacitor
+R1,1,R,R_0603_1608Metric,,,,smt,Resistor
+RESET,1,RESET,SW_Push_1TS009xxxx-xxxx-xxxx_6x6x5mm,,,,smt,"Push button switch, generic, two pins"
+U1,1,MPU-6050,InvenSense_QFN-24_4x4mm_P0.5mm,,,,smt,"InvenSense 6-Axis Motion Sensor, Gyroscope, Accelerometer, I2C"
