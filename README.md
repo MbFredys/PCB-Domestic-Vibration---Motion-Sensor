@@ -1,57 +1,49 @@
-# PCB - Domestic Vibration Sensor
-This is a compact PCB design for a home and industrial vibration detection system, capable of capturing precise motion and vibration data using a 6-axis IMU sensor and an ESP32-based microcontroller. Features:
+# Motion and Vibration Sensor — Hardware Design
 
-1. 🌀 Motion & vibration detection using the MPU-6050 (3-axis accelerometer + 3-axis gyroscope)
-2. 📶 Wi-Fi and Bluetooth connectivity via Arduino Nano ESP32
-3. 🔋 Battery-powered operation from a 7.4 V Li-ion/LiPo pack with onboard 3.3 V regulation
-4. 🔘 Hardware reset button with RC filter for stable system control
-5. 💤 Low-power operation modes for extended battery life
-6. 🏠 Ideal for smart home systems, appliance monitoring, and vibration analytics
+Compact motion-sensing PCB concept combining an Arduino Nano ESP32 and an MPU-6050 six-axis IMU.
 
-# Usage
-To use the Domestic Vibration Sensor, follow these steps:
+> **Status: design under review.** Source schematics, PCB files, renders and manufacturing exports are available. Firmware is not published in this repository, and no measurement results are supplied. The current design has unresolved electrical issues and must not be treated as ready for fabrication.
 
-1. Connect a 7.4 V Li-ion/LiPo battery to the power input terminal.
-2. Mount the PCB on the surface or object you wish to monitor (e.g., washing machine, air conditioner, motor).
-3. Power on the system and connect via Wi-Fi or Bluetooth.
-4. Access vibration data in real-time or log readings locally for later analysis.
-5. Configure motion thresholds and alerts based on application needs.
-6. The ESP32 automatically manages power and sensor interrupts for efficient operation.
-7. The device can monitor subtle vibration patterns, detect abnormal activity, and send alerts or logs to a connected interface, making it perfect for home automation, predictive maintenance, and IoT condition monitoring.
+![PCB design render](Release/Wearable%20B%C3%A1sico%203.png)
 
-# Getting Started
-To get started with the Domestic Vibration Sensor PCB design:
+## Objective and intended architecture
 
-1. Clone this repository to your local environment.
-2. Open the KiCad project files to review schematic and layout.
-3. Verify critical sections:
-4. I²C routing between MPU-6050 and ESP32
-5. Proper power regulation and decoupling
-6. Placement of interrupt and reset lines
-7. Send the Gerber files to PCBWay or your preferred PCB manufacturer.
-8. Once the PCB is fabricated, solder the following components in order:
-  - Power regulation stage
-  - Arduino Nano ESP32 header pins
-  - MPU-6050 sensor
-  - Passive components and terminal connectors
-  - Upload your firmware using the Arduino IDE or ESP-IDF.
-  - Connect your battery and test vibration readings via serial monitor or wireless dashboard
+The intended application is acquiring motion data from an object and exploring wireless monitoring. The design includes:
 
-# Contributing
-If you would like to contribute to the Domestic Vibration Sensor project, please follow these steps:
+- Arduino Nano ESP32 module for processing and intended Wi-Fi/Bluetooth connectivity.
+- MPU-6050 accelerometer and gyroscope connected over I²C, with an interrupt signal.
+- A battery input labelled `+7.4_BATT` connected to the Nano VIN input.
+- A 3.3 V rail supplied by the Nano module to the IMU.
+- External reset circuitry.
 
-1. Fork this repository.
-2. Create a feature branch (git checkout -b feature/improvement).
-3. Implement and document your enhancements.
-4. Submit a pull request with clear details about your improvements.
+The carrier does not contain a separately populated 3.3 V regulator in the published netlist. The battery range, module input limits and power budget require verification.
 
-# Areas for Contribution
-1. 🔋 Power optimization and sleep management
-2. 📡 Wireless data transmission and logging
-3. 🧭 Sensor calibration and digital filtering
-4. 🏠 Enclosure and mechanical mounting designs
-5. 📊 Data visualization interfaces and dashboards
-6. 🔧 PCB layout and EMI/ESD improvements
+## Important design-review findings
 
-# License
-This Domestic Vibration Sensor PCB design is licensed under the MIT License. See the [MIT License ↗](https://opensource.org/license/mit/) file for more information.
+- C1 and C2 are assigned **2.2 µF** and connected between 3.3 V and SCL/SDA in the published netlist. This is not a substitute for I²C pull-up resistors and requires correction before fabrication.
+- The reset resistor R1 has an unspecified value (`R`).
+- The legacy source filenames say “Wearable Básico”; these are retained so existing links remain valid.
+
+See [DESIGN_REVIEW.md](DESIGN_REVIEW.md) for evidence, proposed remediation and verification criteria. These findings are not marked as resolved.
+
+## What is not demonstrated
+
+No firmware, alerting service, wireless dashboard, logging implementation, calibrated vibration measurements, predictive-maintenance performance or measured battery life is provided. Those are possible future developments, not current capabilities.
+
+## Repository contents
+
+| Directory | Contents |
+|---|---|
+| [Kicad Files](Kicad%20Files/) | Editable schematics, PCB, project and exported netlist |
+| [Schematic](Schematic/) | PDF schematic |
+| [Manufacturing](Manufacturing/) | Historical BOM, placement and fabrication exports; review before reuse |
+| [Release](Release/) | PCB renders and enclosure illustration |
+| [Firmware](Firmware/) | Availability note; no implementation |
+
+## Next development steps
+
+Resolve the documented electrical findings, synchronize schematic and PCB, run ERC/DRC, regenerate outputs, then build and test a prototype. Define the measurement bandwidth, sampling rate, mechanical mounting and acceptance criteria before claiming vibration-monitoring performance.
+
+## License
+
+MIT. See [LICENSE](LICENSE).
